@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     void calcAngles(){
         angf = Math.atan((double)(accy/accz));
-        angi = Math.atan(accx/Math.sqrt((accy*accy) + (accz*accz))) * -1;
-        angp = Math.atan(((magx-magxb)*Math.cos(angi) +(magy-magyb)*Math.sin(angi)*Math.sin(angf) + (magz-magzb)*Math.sin(angi)*Math.cos(angi))/((magy-magyb)*Math.cos(angi) - (magz - magzb)*Math.sin(angi)));
+        angi = Math.atan(accx/Math.sqrt(accy*accy + accz*accz)) * -1;
+        angp = Math.atan(((magx-magxb)*Math.cos(angi) +(magy-magyb)*Math.sin(angi)*Math.sin(angf) + (magz-magzb)*Math.sin(angi)*Math.cos(angf))/((magy-magyb)*Math.cos(angf) - (magz - magzb)*Math.sin(angf)));
 
 
 
@@ -124,8 +124,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     void calcVector(){
-        vnx = (Math.sin(angi)*Math.sin(angp))+(Math.cos(angi)*Math.cos(angp)*Math.sin(angi));
-        vny = (Math.cos(angf)*Math.sin(angi)*Math.sin(angp)) - (Math.cos(angp)*Math.sin(angf));
+        vnx = (Math.sin(angf)*Math.sin(angp))+(Math.cos(angf)*Math.cos(angp)*Math.sin(angi));
+        vny = (Math.cos(angf)*Math.sin(angi)*Math.sin(angp)) - (Math.cos(angp)*Math.sin(angi));
         vnz = Math.cos(angf)*Math.cos(angi);
 
         Log.d(TAG, "Vn updated: X:"+vnx+" Y:"+vny+" Z:"+vnz);
@@ -159,9 +159,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     void calcDip(){
         if(vnz > 0){
-            dip = Math.atan((Math.sqrt(((vnx*vnx)+(vny*vny))/vnz)));
+            dip = Math.atan(Math.sqrt(vnx*vnx+vny*vny)/Math.vnz);
         } else{
-            dip = Math.atan((Math.sqrt(((vnx*vnx)+(vny*vny))/(vnz*-1))));
+            dip = Math.atan(Math.sqrt(vnx*vnx+vny*vny)/Math.vnz)*-1;
         }
 
         Log.d(TAG, "Dip: "+dip);
